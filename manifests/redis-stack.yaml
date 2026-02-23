@@ -17,6 +17,14 @@ spec:
         image: redis:alpine
         ports:
         - containerPort: 6379
+        # ADD THIS SECTION TO FIX THE WARNING
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
 ---
 apiVersion: v1
 kind: Service
