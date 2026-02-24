@@ -1,0 +1,7 @@
+Access Site Post Lauch k8s
+http://azure-site.local
+
+Access About Page via URL-Routing 
+http://azure-site.local/about.html
+
+
