@@ -1,7 +1,21 @@
+# Save to: ~/git/K8S-Deploy-Test/manifests/redis-stack.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  selector:
+    app: redis
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-db
+  name: redis-deployment
 spec:
   replicas: 1
   selector:
@@ -17,23 +31,24 @@ spec:
         image: redis:alpine
         ports:
         - containerPort: 6379
-        # ADD THIS SECTION TO FIX THE WARNING
         resources:
           requests:
-            memory: "64Mi"
             cpu: "100m"
+            memory: "100Mi"
           limits:
-            memory: "128Mi"
             cpu: "200m"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-service
-spec:
-  selector:
-    app: redis
-  ports:
-    - protocol: TCP
-      port: 6379
-      targetPort: 6379
+            memory: "200Mi"
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 10

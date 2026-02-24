@@ -10,20 +10,27 @@
         :root { --azure-blue: #0078d4; --dark-bg: #1a1a1a; }
         body { background-color: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
         .hero { background: linear-gradient(135deg, #2c3e50 0%, #000000 100%); color: white; padding: 3rem 0; }
-        .metric-card { border-left: 5px solid #0078d4; }
+        .metric-card { border-left: 5px solid #0078d4; transition: transform 0.2s; }
+        .metric-card:hover { transform: translateY(-5px); }
+        .nav-link { color: rgba(255,255,255,0.8) !important; }
+        .nav-link:hover { color: var(--azure-blue) !important; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-microchip me-2"></i>Infrastructure Monitor</a>
+            <a class="navbar-brand" href="/"><i class="fas fa-microchip me-2"></i>Infrastructure Monitor</a>
+            <div class="navbar-nav">
+                <a class="nav-link active" href="/">Dashboard</a>
+                <a class="nav-link" href="/about.html">About Architecture</a>
+            </div>
         </div>
     </nav>
 
     <header class="hero text-center">
         <div class="container">
             <h1 class="display-4 fw-bold text-info">Active Monitoring</h1>
-            <p class="lead">Metrics Server Enabled | Real-time Resource Scrape</p>
+            <p class="lead">Domain: <span class="badge bg-primary">azure-site.local</span> | Metrics Server Active</p>
         </div>
     </header>
 
@@ -32,17 +39,22 @@
             <div class="col-md-6">
                 <div class="card p-4 metric-card shadow-sm h-100">
                     <h5 class="text-primary"><i class="fas fa-chart-line me-2"></i>Resource Tracking</h5>
-                    <p>Metrics Server is currently scraping <b>CPU (milli-cores)</b> and <b>RAM (MiB)</b> across 5 replicas.</p>
-                    <div class="progress mt-2" style="height: 10px;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%"></div>
+                    <p>Scraping <b>CPU (milli-cores)</b> and <b>RAM (MiB)</b> for auto-scaling targets.</p>
+                    <label class="small text-muted">Current Load Distribution</label>
+                    <div class="progress mt-2" style="height: 12px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 45%"></div>
                     </div>
+                    <p class="mt-3 small">HPA Target: 50% CPU</p>
                 </div>
             </div>
+            
             <div class="col-md-6">
-                <div class="card p-4 bg-dark text-success shadow-sm h-100">
+                <div class="card p-4 bg-dark text-success shadow-sm h-100 border-0">
                     <h5><i class="fas fa-terminal me-2"></i>Live CLI Insight</h5>
-                    <code>$ microk8s kubectl top pods</code>
-                    <p class="mt-3 text-light small">Run the above in your terminal to see live load distribution.</p>
+                    <div class="p-3 bg-black rounded">
+                        <code class="text-info">$ kubectl top pods -l app=web-server</code>
+                    </div>
+                    <p class="mt-3 text-secondary small">The Ingress Controller is currently balancing traffic across all healthy replicas in the 192.168.49.2 subnet.</p>
                 </div>
             </div>
         </div>

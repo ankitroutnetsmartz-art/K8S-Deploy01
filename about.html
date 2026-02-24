@@ -2,21 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cluster Architecture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Manifest | Cluster-003</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --k8s-blue: #326ce5; --dark-bg: #0d1117; --border: #30363d; --accent: #58a6ff; }
+        body { background-color: var(--dark-bg); color: #c9d1d9; font-family: 'Consolas', monospace; }
+        .manifest-card { background-color: #161b22; border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; margin-top: 2rem; border-left: 4px solid var(--k8s-blue); }
+        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .spec-item { padding: 15px; background: #010409; border: 1px solid var(--border); border-radius: 6px; }
+        .label { color: #8b949e; font-size: 0.75rem; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .value { color: var(--accent); font-weight: bold; font-size: 1.1rem; }
+        .network-node { border: 1px dashed var(--border); padding: 10px; border-radius: 5px; text-align: center; font-size: 0.85rem; }
+        .flow-arrow { color: var(--k8s-blue); font-size: 1.2rem; }
+    </style>
 </head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <div class="jumbotron bg-white p-5 shadow-sm rounded">
-            <h1 class="display-4 text-primary">System Architecture</h1>
-            <hr class="my-4">
-            <p>This project demonstrates a high-uptime web stack using:</p>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b>Infrastructure:</b> Azure Virtual Machine</li>
-                <li class="list-group-item"><b>Traffic Management:</b> Kubernetes NodePort Service (Port 32000)</li>
-                <li class="list-group-item"><b>Configuration:</b> ConfigMaps for Decoupled Content</li>
-            </ul>
-            <a class="btn btn-primary btn-lg mt-4" href="index.html" role="button">Back to Dashboard</a>
+<body>
+    <div class="container py-5">
+        <div class="manifest-card shadow-lg">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <h2 class="m-0"><i class="fas fa-server me-3 text-info"></i>SYSTEM_MANIFEST_ALPHA</h2>
+                <div class="text-end">
+                    <span class="badge bg-success">HEALTHY</span>
+                    <div class="small text-muted mt-1">Uptime: 99.99%</div>
+                </div>
+            </div>
+
+            <h5 class="text-info mb-4 text-uppercase"><i class="fas fa-microchip me-2"></i> Compute & Orchestration</h5>
+            <div class="spec-grid mb-5">
+                <div class="spec-item"><span class="label">Control Plane</span><span class="value">Kubernetes 1.28</span></div>
+                <div class="spec-item"><span class="label">Runtime</span><span class="value">Docker v24.0 (Ubuntu)</span></div>
+                <div class="spec-item"><span class="label">Replica Strategy</span><span class="value">RollingUpdate (MaxUnavailable: 1)</span></div>
+                <div class="spec-item"><span class="label">Scaling Engine</span><span class="value">HPA (Horizontal Pod Autoscaler)</span></div>
+            </div>
+
+            <h5 class="text-info mb-4 text-uppercase"><i class="fas fa-network-wired me-2"></i> Network Topology</h5>
+            <div class="row align-items-center text-center mb-5">
+                <div class="col"><div class="network-node">Public Internet</div></div>
+                <div class="col-1"><i class="fas fa-arrow-right flow-arrow"></i></div>
+                <div class="col"><div class="network-node bg-dark text-info">NGINX Ingress<br><small>azure-site.local</small></div></div>
+                <div class="col-1"><i class="fas fa-arrow-right flow-arrow"></i></div>
+                <div class="col"><div class="network-node">App Service<br><small>ClusterIP: 80</small></div></div>
+                <div class="col-1"><i class="fas fa-arrow-right flow-arrow"></i></div>
+                <div class="col"><div class="network-node">Redis Layer<br><small>Port: 6379</small></div></div>
+            </div>
+
+            <h5 class="text-info mb-4 text-uppercase"><i class="fas fa-database me-2"></i> Data Persistence</h5>
+            <div class="spec-grid mb-5">
+                <div class="spec-item"><span class="label">Primary DB</span><span class="value">Redis (Alpine Base)</span></div>
+                <div class="spec-item"><span class="label">Sync Frequency</span><span class="value">Real-time / In-Memory</span></div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <a href="/" class="btn btn-outline-info"><i class="fas fa-chevron-left me-2"></i>Exit Terminal</a>
+                <button onclick="location.reload()" class="btn btn-outline-secondary"><i class="fas fa-sync me-2"></i>Force Refresh</button>
+            </div>
         </div>
     </div>
 </body>
