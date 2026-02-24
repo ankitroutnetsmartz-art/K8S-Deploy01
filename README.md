@@ -23,4 +23,4 @@
 
 ### 4. Version Control
 * **Git:** 2.x+
-* **Authentication:** SSH ED25519 Key
+  
