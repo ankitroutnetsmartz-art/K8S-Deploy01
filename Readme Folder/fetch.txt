@@ -1,7 +1,10 @@
-Access Site Post Lauch k8s
+#Access Site Post Lauch k8s
 http://azure-site.local
 
-Access About Page via URL-Routing 
+#Access About Page via URL-Routing 
 http://azure-site.local/about.html
 
+
+#Traffic Spam Loop
+while true; do curl -s -H "Host: azure-site.local" http://127.0.0.1 > /dev/null; done
 

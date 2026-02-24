@@ -1,9 +1,11 @@
+# Save this block and apply it: kubectl apply -f ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: web-ingress
+  name: azure-k8s-site-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
   rules:
   - host: azure-site.local
     http:
