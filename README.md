@@ -1,26 +1,24 @@
-# K8S-Deploy01
-# Infrastructure Requirements
+# Multi-Tier Kubernetes Infrastructure Project
+**Status:** Production-Ready (Project 5/5)
 
-### 1. Compute (Azure)
-* **Instance Type:** Standard_B2s (2 vCPUs, 4GB RAM recommended)
-* **OS:** Ubuntu 24.04 LTS
-* **Storage:** 30GB Root Volume
+## 🏗️ Architecture Stack
+* **Orchestration:** Kubernetes (Minikube on Ubuntu)
+* **Traffic Management:** NGINX Ingress Controller (`azure-site.local`)
+* **Scaling:** Horizontal Pod Autoscaler (HPA) targeting 50% CPU
+* **Monitoring:** K8s Metrics Server with UI Resource Tracking
+* **Storage:** ConfigMap-backed static assets for zero-downtime UI updates
 
-### 2. Orchestration & Tools
-* **MicroK8s:** v1.30+
-* **Add-ons:** - metrics-server (for Project 2)
-    - dashboard (for UI Management)
-    - dns
-* **Kubectl:** Version compatible with K8s v1.30
+## 🚀 Key Features
+1. **Self-Healing:** Readiness and Liveness probes ensure traffic only hits healthy pods.
+2. **Auto-Scaling:** Cluster dynamically scales from 2 to 10 replicas based on real-time load.
+3. **Professional DNS:** Accessible via host-mapped domain `http://azure-site.local` using L7 routing.
+4. **Automated CI/CD:** Unified `deploy_stack.sh` for one-command infrastructure deployment.
 
-### 3. Network Configuration (Azure NSG)
-| Port | Protocol | Purpose |
-|------|----------|---------|
-| 22   | TCP      | SSH Access |
-| 80   | TCP      | HTTP Traffic |
-| 32000| TCP      | K8S NodePort Service |
-| 8001 | TCP      | K8S Dashboard Proxy |
+## 🛠️ Operational Commands
+### Access Frontend
+```bash
+# Ensure tunnel is active in a separate terminal
+minikube tunnel
 
-### 4. Version Control
-* **Git:** 2.x+
-  
+# Visit in browser
+[http://azure-site.local](http://azure-site.local)
