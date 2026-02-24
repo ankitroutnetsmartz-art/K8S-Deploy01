@@ -4,9 +4,22 @@ http://azure-site.local
 #Access About Page via URL-Routing 
 http://azure-site.local/about.html
 
-Apache Benchmark Traffic Spam Loop
+#Apache Benchmark Traffic Spam Loop
 ab -n 100000 -c 100 -H "Host: azure-site.local" http://$TARGET_IP/
 
-Monitor Traffic via Terminal
+#Monitor Traffic via Terminal
 watch -n 1 "kubectl get hpa web-autoscaler; echo; kubectl top pods -l app=web-server"
+
+# Start Minikube
+minikube start
+
+# Enable required addons for Project 5 logic
+minikube addons enable ingress
+minikube addons enable metrics-server
+
+# Navigate to the project root
+cd ~/git/Multi-Tier-K8S-Infa
+
+# Apply all manifests
+kubectl apply -f manifests/website-stack.yaml
 
