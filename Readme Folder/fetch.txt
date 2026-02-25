@@ -33,34 +33,34 @@ To access the application via the Ingress hostname (`azure-site.local`):
 
 A. Start Minikube Tunnel
 In a **Separate Terminal**, run:
-```bash
+bash
 minikube tunnel
-```
+
 *Note: Keep this running to allow traffic through the Ingress controller.*
 
 B. Update Hosts File
 Map the Minikube IP to the project domain:
-```bash
+bash
 echo "$(minikube ip) azure-site.local" | sudo tee -a /etc/hosts
-```
+
 
 C. Open in Browser
 Visit: [http://azure-site.local](http://azure-site.local)
 
 6. Monitor and Test
-- **Monitor Autoscaling**: `watch kubectl get hpa,pods`
-- **Check Logs**: `kubectl logs -l app=web-server`
-- **Load Test**: `ab -n 1000 -c 10 http://azure-site.local/api/health`
+- Dashboard: minikube dashboard
+- Monitor Autoscaling: `watch kubectl get hpa,pods`
+- Check Logs: `kubectl logs -l app=web-server`
+- Load Test: `ab -n 1000 -c 10 http://azure-site.local/api/health`
 
 7. Closing the Project
 To stop the environment and free up resources:
 
 Stop Services
-```bash
+bash
 minikube stop
-```
 
 Clean up (Optional - Removes all data)
-```bash
+bash
 minikube delete
-```
+
